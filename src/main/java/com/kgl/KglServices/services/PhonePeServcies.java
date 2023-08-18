@@ -161,16 +161,13 @@ public class PhonePeServcies {
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
 		HttpEntity<MultiValueMap<String, String>> entity = new HttpEntity<MultiValueMap<String, String>>(map, headers);
-		ResponseEntity<String> responseEntity = null;
 		try {
-			responseEntity = new RestTemplate().exchange(url, HttpMethod.POST, entity, String.class);
 			logger.info(":::::call ends here::::::");
-			return new ResponseEntity<>("Result:: ", HttpStatus.OK);
-		}
-		catch (Exception e) {
+			return new RestTemplate().exchange(url, HttpMethod.POST, entity, String.class);
+		} catch (Exception e) {
 			logger.info("F....table name:: " + e.getMessage());
+			return new ResponseEntity<>("Result:: ", HttpStatus.BAD_REQUEST);
 		}
-		return new ResponseEntity<>("Result:: ", HttpStatus.BAD_REQUEST);
 	}
 
 	public ResponseEntity<String> ExotelCallApi(CallObj callObj) {
@@ -199,16 +196,14 @@ public class PhonePeServcies {
 		headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
 		headers.set("Authorization", Exotel_token);
 		HttpEntity<MultiValueMap<String, String>> entity = new HttpEntity<MultiValueMap<String, String>>(map, headers);
-		ResponseEntity<String> responseEntity = null;
 		try {
-			responseEntity = new RestTemplate().exchange(ExotelUrls, HttpMethod.POST, entity, String.class);
 			logger.info(":::::call ends here::::::");
-			return new ResponseEntity<>("Result:: ", HttpStatus.OK);
-		}
-		catch (Exception e) {
+			return new RestTemplate().exchange(ExotelUrls, HttpMethod.POST, entity, String.class);
+		} catch (Exception e) {
 			logger.info("call failed to due to this reason-->::" + e.getMessage());
+			return new ResponseEntity<>("Result:: ", HttpStatus.BAD_REQUEST);
 		}
-		return new ResponseEntity<>("Result:: ", HttpStatus.BAD_REQUEST);
+
 	}
 
 }
